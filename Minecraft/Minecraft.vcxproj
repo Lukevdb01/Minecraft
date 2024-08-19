@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="renderer.cpp" />
@@ -160,6 +161,10 @@
   <ItemGroup>
     <None Include="shaders\fragment_shader.frag" />
     <None Include="shaders\vertex_shader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="content\dirt.png" />
+    <Image Include="content\grass.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

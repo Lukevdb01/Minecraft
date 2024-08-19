@@ -31,7 +31,8 @@ void Renderer::setTranslation(GLuint ID, float x, float y, float z)
 void Renderer::render()
 {
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, sizeof(RenderCoords::indices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 }
 
 // Private methods
@@ -50,6 +51,16 @@ void Renderer::createBuffers()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(RenderCoords::indices), RenderCoords::indices, GL_STATIC_DRAW);
 
 	// Position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
+
+	// Color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
+	// Texture attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+
+	glBindVertexArray(0); // Unbind VAO
 }

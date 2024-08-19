@@ -3,10 +3,13 @@
 #include "window.h"
 #include "shader.h"
 #include "renderer.h"
+#include "stb/stb_image.h"
 
 int main()
 {
-	Window* window = new Window("OpenGL", 800, 600);
+	int WIDTH = 800, HEIGHT = 600;
+
+	Window* window = new Window("OpenGL", WIDTH, HEIGHT);
     if (!gladLoadGL())
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
@@ -17,8 +20,36 @@ int main()
 	renderer->createBuffers();
 
 	ShaderProgram->use();
-	renderer->setProjection(ShaderProgram->ID, 45.0f, 800.0f / 600.0f, 0.1f, 100.0f);
+	renderer->setProjection(ShaderProgram->ID, 45.0f, WIDTH / HEIGHT, 0.1f, 100.0f);
 	renderer->setCamera(ShaderProgram->ID, 0.0f, -45.0f, 55.0f);
+
+	// Setup texture
+	int width, height, nrChannels;
+	unsigned char* data = stbi_load("content/grass.png", &width, &height, &nrChannels, 0);
+
+	unsigned int texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	
+	if (data)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	}
+	else
+	{
+		std::cout << "Failed to load texture" << std::endl;
+	}	
+	stbi_image_free(data);
+
+	ShaderProgram->use();
+	glUniform1i(glGetUniformLocation(ShaderProgram->ID, "texture1"), 0);
+
+	glEnable(GL_DEPTH_TEST);
 
 	// Game loop
     while (window->isRunning()) {
@@ -29,6 +60,11 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		ShaderProgram->use();
+
+		// Bind the texture
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture);
+
 		// generate grid of cubes
 		for (int x = -20; x < 20; x++)
 		{
@@ -38,7 +74,6 @@ int main()
 				renderer->render();
 			}
 		}
-		renderer->render();
 
 		// Swap front and back buffers
 		window->SwapWindowBuffers();

@@ -1,62 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="rendering">
+      <UniqueIdentifier>{7b6954fb-ebdb-4085-a116-4cc88b389338}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="windows">
+      <UniqueIdentifier>{277ca86f-b083-41c9-ad1c-2bd436f375d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
+    <Filter Include="external">
+      <UniqueIdentifier>{7cf409eb-99cc-4ea9-ad08-b1418cb6fff2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="util.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="renderer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>rendering</Filter>
     </ClCompile>
     <ClCompile Include="shader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="window.cpp">
+      <Filter>windows</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>external</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>external</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="stb_image.cpp">
+      <Filter>external</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="renderer.h">
-      <Filter>Header Files</Filter>
+      <Filter>rendering</Filter>
     </ClInclude>
     <ClInclude Include="shader.h">
-      <Filter>Header Files</Filter>
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="window.h">
+      <Filter>windows</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>external</Filter>
     </ClInclude>
     <ClInclude Include="helper.h">
-      <Filter>Header Files</Filter>
+      <Filter>external</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fragment_shader.frag">
-      <Filter>Resource Files</Filter>
+      <Filter>resources</Filter>
     </None>
     <None Include="shaders\vertex_shader.vert">
-      <Filter>Resource Files</Filter>
+      <Filter>resources</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="content\grass.png">
+      <Filter>resources</Filter>
+    </Image>
+    <Image Include="content\dirt.png">
+      <Filter>resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>
