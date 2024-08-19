@@ -6,23 +6,25 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "helper.h"
 
-void Renderer::setMatrices(GLuint ID)
+void Renderer::setProjection(GLuint ID, float fov, float aspect, float, float)
 {
-	// Set up the projection matrix
-	GLint modelLoc = glGetUniformLocation(ID, "model");
-	GLint viewLoc = glGetUniformLocation(ID, "view");
 	GLint projectionLoc = glGetUniformLocation(ID, "projection");
-
-	// Projection matrix
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(fov), aspect, 0.1f, 100.0f);
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+}
 
-	// View matrix
-	glm::mat4 view = glm::lookAt(glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+void Renderer::setCamera(GLuint ID, float x, float y, float z)
+{
+	GLint viewLoc = glGetUniformLocation(ID, "view");
+	glm::mat4 view = glm::lookAt(glm::vec3(x, y, z), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+}
 
-	// Model matrix
+void Renderer::setTranslation(GLuint ID, float x, float y, float z)
+{
+	GLint modelLoc = glGetUniformLocation(ID, "model");
 	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(x, y, z));
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 }
 

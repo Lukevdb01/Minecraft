@@ -10,6 +10,10 @@ public:
 	void setMatrices(GLuint ID);
 	void render();
 
+	void setProjection(GLuint ID, float fov, float aspect, float near, float far);
+	void setCamera(GLuint ID, float x, float y, float z);
+	void setTranslation(GLuint ID, float x, float y, float z);
+
 public:
 	GLuint VAO, VBO, EBO;
 	void createBuffers();
